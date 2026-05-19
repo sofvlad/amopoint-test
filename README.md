@@ -7,12 +7,44 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## О Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. 
+Laravel - это фреймворк для веб-приложений с выразительным, элегантным синтаксисом. Мы считаем, что разработка должна быть приятным и творческим процессом, чтобы приносить истинное удовлетворение.
 
-## Deploy
+## Запуск
 
 ```bash
-docker-compose up;
+docker-compose up
 ```
+
+## Возможности проекта
+
+### JokeClient
+Клиент для работы с внешним API шутков (`https://official-joke-api.appspot.com`)
+- Автоматические повторные попытки при ошибках (3 попытки, задержка 500/1000/2000мс)
+- Отдельное логирование в `storage/logs/joke-client.log`
+- DTO для типизации данных
+- Обработка исключений
+
+### JokeService
+Сервисный слой для оркестрации получения и сохранения шутков
+- Инкапсулирует логику взаимодействия с `JokeClient` и репозиторием
+- Метод `fetchAndStoreRandomJoke()` — получение и сохранение шутка
+
+### JokeRepository
+Репозиторий для работы с таблицей `jokes`
+- Интерфейс `JokeRepositoryInterface` для внедрения зависимостей
+- Метод `save()` — сохранение/обновление записей через `updateOrCreate`
+
+### Планировщик задач
+- Консольная команда `joke:fetch` — получение шутков из API каждые 5 минут
+- Автоматическое сохранение данных в таблицу `jokes`
+
+### REST API
+- `GET /api/v1/jokes` — возвращает массив шутков из БД в формате JSON
+
+### Фильтрация полей (JS)
+- Динамическое отображение полей таблицы в зависимости от выбранного типа
+- Файл: `public/js/filter-fields.js`
+- Подключен через Vite, но можно так: `<script src="/js/filter-fields.js"></script>`
+
