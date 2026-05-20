@@ -45,6 +45,6 @@ docker-compose up
 
 ### Фильтрация полей (JS)
 - Динамическое отображение полей таблицы в зависимости от выбранного типа
-- Файл: `public/js/filter-fields.js`
-- Подключен через Vite, но можно так: `<script src="/js/filter-fields.js"></script>`
+- Файл: `resources/js/filterFields.js`
+- Подключен через Vite, но можно так: `<script src="/js/filterFields.js"></script>`
 
